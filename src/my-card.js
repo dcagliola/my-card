@@ -5,23 +5,23 @@ export class MyCard extends LitElement {
     return 'my-card';
   }
 
-  constructor() {
-    super();
-    this.title = "In Loving Memory";
-    this.body = "Kenny South Park";
-    this.img = "https://upload.wikimedia.org/wikipedia/en/thumb/6/6f/KennyMcCormick.png/250px-KennyMcCormick.png";
-    this.link = "https://hax.psu.edu/";
-    this.bgColor = "lightblue";
-  }
-
   static get properties() {
     return {
-      title: { type: String },
-      body: { type: String },
       img: { type: String },
       link: { type: String },
       bgColor: { type: String },
+      fancy: { type: Boolean, reflect: true },
+      title: {type: String },
     };
+  }
+
+  constructor() {
+    super();
+    this.img = "#";
+    this.title = "Default Title";
+    this.link = "#";
+    this.bgColor = "lightgray";
+    this.fancy = false;
   }
 
   static get styles() {
@@ -31,75 +31,111 @@ export class MyCard extends LitElement {
       }
 
       .card {
-        background-color: var(--card-bg, lightblue);
-        width: 90%;
-        max-width: 500px;
-        height: auto;
-        border-radius: 5%;
+        background-color: var(--my-card-bg, lightblue);
+        width: 250px;
+        border-radius: 8px;
         padding: 1rem;
         box-sizing: border-box;
-        margin: 16px auto;
+        margin: 8px;
       }
 
-      .card.fancy {
-        background-color: orange;
+      :host([fancy]) .card {
+        display: block;
+        background-color: pink;
+        border: 2px solid fuchsia;
+        box-shadow: 10px 5px 5px red;
       }
 
       .heading {
-        padding: 16px;
-        margin: 16px;
-        font-size: 70px;
+        font-size: 1.5rem;
         text-align: center;
+        margin-bottom: 0.5rem;
       }
 
       .image-box {
-        width: 80%;
-        max-width: 300px;
+        width: 200px;
+        height: 200px;
         border: 2px solid black;
-        margin: 16px auto;
+        margin: 0 auto 1rem auto;
+        overflow: hidden;
       }
 
       .image-box img {
         width: 100%;
-        height: auto;
+        height: 100%;
+        object-fit: contain;
+        display: block;
       }
 
       .body {
-        font-size: 50px;
+        font-size: 1rem;
         text-align: center;
+        margin-bottom: 1rem;
       }
 
       .btn {
         display: block;
-        margin: 16px auto;
+        margin: 0 auto;
         background-color: black;
         color: white;
-        font-size: 20px;
-        border-radius: 10%;
-        padding: 16px;
+        font-size: 1rem;
+        border-radius: 6px;
+        padding: 0.5rem 1rem;
         cursor: pointer;
+        text-align: center;
+        text-decoration: none;
       }
 
       .btn:focus,
       .btn:hover {
         background-color: gray;
       }
+
+      details summary {
+        text-align: left;
+        font-size: 20px;
+        padding: 8px 0;
+      }
+
+      details[open] summary {
+        font-weight: bold;
+      }
+  
+      details div {
+        border: 2px solid black;
+        text-align: left;
+        padding: 8px;
+        height: 70px;
+        overflow: auto;
+      }
     `;
   }
-
+  openChanged(e) {
+    console.log(e.newState);
+    if (e.newState === "open") {
+      this.fancy = true;
+    } else {
+      this.fancy = false;
+    }
+  }
   render() {
     return html`
       <div class="card" style="background-color:${this.bgColor}">
-        <div class="heading">${this.title}</div>
+        <div class="heading">
+          <slot name="title">Default Title</slot>
+        </div>
         <div class="image-box">
           <img src="${this.img}" alt="Card image">
         </div>
-        <div class="body">${this.body}</div>
-        <a href="${this.link}" target="_blank">
-          <button class="btn">Details</button>
-        </a>
-      </div>
-    `;
+        <div>
+          <details ?open="${this.fancy}" @toggle="${this.openChanged}">
+            <summary>Description</summary>
+            <p><slot name="body">Default body text</slot></p>
+            <a href="${this.link}" target="_blank" class="btn">
+            <slot name="button">Details</slot></a>
+          </details>
+        </div>
+      </div>`;
   }
 }
 

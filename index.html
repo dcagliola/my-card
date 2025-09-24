@@ -16,8 +16,17 @@
       font-family: sans-serif;
       background-color: #ededed;
     }
+
     polaris-chip {
       margin: 16px;
+    }
+
+    .card-row {
+      display: flex;
+      gap: 16px;             /* space between cards */
+      justify-content: center; /* center horizontally */
+      flex-wrap: wrap;
+      padding: 16px;
     }
   </style>
   <title>polaris-chip / my-card</title>
@@ -25,16 +34,51 @@
 
 <body>
   <h1>polaris-chip</h1>
-  <!-- this is going to do whatever the tag's defaults are -->
   <polaris-chip title="News of Record" link="https://psu.edu/"></polaris-chip>
   <polaris-chip title="Faculty and Staff"></polaris-chip>
   <polaris-chip title="Sports are the only thing that matter"></polaris-chip>
   <polaris-chip title="Grants and donations"></polaris-chip>
 
   <h1>my-card</h1>
-  <my-card></my-card>
+  <div class="card-row">
+    <my-card 
+        img="https://upload.wikimedia.org/wikipedia/en/thumb/6/6f/KennyMcCormick.png/250px-KennyMcCormick.png"
+        link="https://hax.psu.edu/"
+        bgColor="lightblue">
+      <span slot="title">In Loving Memory</span>
+      <span slot="body"><strong>Kenny South Park</strong><br>Oh my god, they killed him.</span>
+      <span slot="button">Details</span>
+    </my-card>
 
-  <!-- this is what is bringing in the definition for this tag -->
+    <my-card
+        img="https://upload.wikimedia.org/wikipedia/en/0/06/ButtersStotch.png"
+        link="https://hax.psu.edu/"
+        bgColor="lightgreen"
+        fancy>
+      <span slot="title"> Alive and Well</span>
+      <span slot="body"><strong>Butters</strong><br>Currently grounded</span>
+      <span slot="button">Details</span>
+    </my-card>
+
+    <my-card
+      img="https://southpark.wiki.gg/images/Mysterion-0.png?afa309"
+      link="https://hax.psu.edu/"
+      bgColor="lightblue"
+      fancy>
+    <span slot="title"> Vigilante at Large</span>
+    <span slot="body"><strong>Mysterion</strong><br>What is his true identity?</span>
+    </my-card>
+
+    <my-card
+      img="https://southpark.wiki.gg/images/Celebritites-fictional-bart-simpson.png?18ad17"
+      link="https://hax.psu.edu/"
+      bgColor="lightgreen"
+      fancy>
+    <span slot="title">Ay Carumba</span>
+    <span slot="body"><strong>Bart</strong><br>I have never watched The Simpsons fun fact</span>
+    </my-card>
+  </div>
+
   <script type="module" src="./src/polaris-chip.js"></script>
   <script type="module" src="./src/my-card.js"></script>
 </body>
