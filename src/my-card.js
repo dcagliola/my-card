@@ -12,6 +12,7 @@ export class MyCard extends LitElement {
       bgColor: { type: String },
       fancy: { type: Boolean, reflect: true },
       title: {type: String },
+      buttonTitle: { type: String, attribute: 'button_title' }
     };
   }
 
@@ -19,9 +20,10 @@ export class MyCard extends LitElement {
     super();
     this.img = "#";
     this.title = "Default Title";
-    this.link = "#";
+    this.link = "https://hax.psu.edu/";
     this.bgColor = "lightgray";
     this.fancy = false;
+    this.buttonTitle = "Details";
   }
 
   static get styles() {
@@ -31,7 +33,7 @@ export class MyCard extends LitElement {
       }
 
       .card {
-        background-color: var(--my-card-bg, lightblue);
+        background-color: var(--bg-color, lightgray);
         width: 250px;
         border-radius: 8px;
         padding: 1rem;
@@ -120,9 +122,9 @@ export class MyCard extends LitElement {
   }
   render() {
     return html`
-      <div class="card" style="background-color:${this.bgColor}">
+      <div class="card" style="--bg-color:${this.bgColor}">
         <div class="heading">
-          <slot name="title">Default Title</slot>
+          <slot name="title">${this.title}</slot>
         </div>
         <div class="image-box">
           <img src="${this.img}" alt="Card image">
@@ -132,7 +134,7 @@ export class MyCard extends LitElement {
             <summary>Description</summary>
             <p><slot name="body">Default body text</slot></p>
             <a href="${this.link}" target="_blank" class="btn">
-            <slot name="button">Details</slot></a>
+            <slot name="button">${this.buttonTitle}</slot></a>
           </details>
         </div>
       </div>`;
