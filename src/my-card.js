@@ -1,4 +1,5 @@
 import { LitElement, html, css } from 'lit';
+import "@haxtheweb/meme-maker/meme-maker.js";
 
 export class MyCard extends LitElement {
   static get tag() {
