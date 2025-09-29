@@ -24,6 +24,7 @@ export class MyCard extends LitElement {
     this.bgColor = "lightgray";
     this.fancy = false;
     this.buttonTitle = "Details";
+    this.defaultBody = "Default body text";
   }
 
   static get styles() {
@@ -132,7 +133,7 @@ export class MyCard extends LitElement {
         <div>
           <details ?open="${this.fancy}" @toggle="${this.openChanged}">
             <summary>Description</summary>
-            <p><slot name="body">Default body text</slot></p>
+            <p><slot name="body">"${this.defaultBody}"</slot></p>
             <a href="${this.link}" target="_blank" class="btn">
             <slot name="button">${this.buttonTitle}</slot></a>
           </details>
